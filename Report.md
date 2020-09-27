@@ -206,7 +206,7 @@ conf_matrix_decision_tree
 ```
 The predictive accuracy of the decision tree model is relatively low at 74.9 %.
 
-### Random Forest
+### Random Forest Model
 ``` r
 set.seed(1813)
 ctrl_RF <- trainControl(method = "repeatedcv", number = 5, repeats = 2)
