@@ -152,9 +152,18 @@ corrplot(corr_matrix, order = "FPC", method = "circle", type = "lower",
          tl.cex = 0.6, tl.col = rgb(0, 0, 0))
 ``` 
 ![](/1.png)
+If two variables are highly correlated their colors are either dark blue (for a positive correlation) or dark red (for a negative corraltions)
+
+Prediction Models
+-----------------
+### Decision Tree Model
 
 ``` r
+set.seed(1813)
+fit_decision_tree <- rpart(classe ~ ., data = train_set, method="class")
+fancyRpartPlot(fit_decision_tree)
 ``` 
+
 ``` r
 ``` 
 ``` r
