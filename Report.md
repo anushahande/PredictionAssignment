@@ -278,6 +278,7 @@ Applying the Best Predictive Model to the Test Data
 The predictive accuracy of the three models evaluated is as follows:
 
 Decision Tree Model: 74.90 %
+
 Random Forest Model: 99.80 %
 
 The Random Forest model is selected and applied to make predictions on the 20 data points from the original testing dataset (data_quiz).
