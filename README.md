@@ -1,4 +1,5 @@
 # PredictionAssignment
+=======================
 Practical Machine Learning - Prediction Assignment Writeup
 
 # Summary
@@ -25,3 +26,5 @@ https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv
 The full reference is as follows:
 
 Velloso, E.; Bulling, A.; Gellersen, H.; Ugulino, W.; Fuks, H. “Qualitative Activity Recognition of Weight Lifting Exercises. Proceedings of 4th International Conference in Cooperation with SIGCHI (Augmented Human ’13)”. Stuttgart, Germany: ACM SIGCHI, 2013.
+
+# Data Loading and Cleaning
