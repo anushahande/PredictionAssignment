@@ -151,6 +151,7 @@ corr_matrix <- cor(train_set[ , -54])
 corrplot(corr_matrix, order = "FPC", method = "circle", type = "lower",
          tl.cex = 0.6, tl.col = rgb(0, 0, 0))
 ``` 
+![](PredictionAssignment/1.png)
 
 ``` r
 ``` 
