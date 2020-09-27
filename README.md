@@ -163,26 +163,131 @@ set.seed(1813)
 fit_decision_tree <- rpart(classe ~ ., data = train_set, method="class")
 fancyRpartPlot(fit_decision_tree)
 ``` 
+![](/2.png)
 
+Predictions of the decision tree model on test_set.
 ``` r
+predict_decision_tree <- predict(fit_decision_tree, newdata = test_set, type="class")
+conf_matrix_decision_tree <- confusionMatrix(predict_decision_tree, test_set$classe)
+conf_matrix_decision_tree
 ``` 
 ``` r
+## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction    A    B    C    D    E
+##          A 1248  173   48   42   39
+##          B   49  589   29   92   40
+##          C    3   54  667  107   49
+##          D   76   89   51  494   98
+##          E   19   44   60   69  675
+## 
+## Overall Statistics
+##                                           
+##                Accuracy : 0.749           
+##                  95% CI : (0.7366, 0.7611)
+##     No Information Rate : 0.2845          
+##     P-Value [Acc > NIR] : < 2.2e-16       
+##                                           
+##                   Kappa : 0.6814          
+##  Mcnemar's Test P-Value : < 2.2e-16       
+## 
+## Statistics by Class:
+## 
+##                      Class: A Class: B Class: C Class: D Class: E
+## Sensitivity            0.8946   0.6207   0.7801   0.6144   0.7492
+## Specificity            0.9139   0.9469   0.9474   0.9234   0.9520
+## Pos Pred Value         0.8052   0.7372   0.7580   0.6114   0.7785
+## Neg Pred Value         0.9562   0.9123   0.9533   0.9243   0.9440
+## Prevalence             0.2845   0.1935   0.1743   0.1639   0.1837
+## Detection Rate         0.2545   0.1201   0.1360   0.1007   0.1376
+## Detection Prevalence   0.3161   0.1629   0.1794   0.1648   0.1768
+## Balanced Accuracy      0.9043   0.7838   0.8638   0.7689   0.8506
+```
+The predictive accuracy of the decision tree model is relatively low at 74.9 %.
+
+### Random Forest
+``` r
+set.seed(1813)
+ctrl_RF <- trainControl(method = "repeatedcv", number = 5, repeats = 2)
+fit_RF  <- train(classe ~ ., data = train_set, method = "rf",
+                  trControl = ctrl_RF, verbose = FALSE)
+fit_RF$finalModel
 ``` 
 ``` r
+## 
+## Call:
+##  randomForest(x = x, y = y, mtry = param$mtry, verbose = FALSE) 
+##                Type of random forest: classification
+##                      Number of trees: 500
+## No. of variables tried at each split: 27
+## 
+##         OOB estimate of  error rate: 0.22%
+## Confusion matrix:
+##      A    B    C    D    E  class.error
+## A 4184    1    0    0    0 0.0002389486
+## B    5 2839    3    1    0 0.0031601124
+## C    0    4 2563    0    0 0.0015582392
+## D    0    0   10 2401    1 0.0045605307
+## E    0    1    0    7 2698 0.0029563932
+``` 
+Predictions of the Random Forest model on test_set.
+``` r
+predict_RF <- predict(fit_RF, newdata = test_set)
+conf_matrix_RF <- confusionMatrix(predict_RF, test_set$classe)
+conf_matrix_RF
 ``` 
 ``` r
+## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction    A    B    C    D    E
+##          A 1394    1    0    0    0
+##          B    0  946    2    0    0
+##          C    0    2  853    3    0
+##          D    0    0    0  801    1
+##          E    1    0    0    0  900
+## 
+## Overall Statistics
+##                                          
+##                Accuracy : 0.998          
+##                  95% CI : (0.9963, 0.999)
+##     No Information Rate : 0.2845         
+##     P-Value [Acc > NIR] : < 2.2e-16      
+##                                          
+##                   Kappa : 0.9974         
+##  Mcnemar's Test P-Value : NA             
+## 
+## Statistics by Class:
+## 
+##                      Class: A Class: B Class: C Class: D Class: E
+## Sensitivity            0.9993   0.9968   0.9977   0.9963   0.9989
+## Specificity            0.9997   0.9995   0.9988   0.9998   0.9998
+## Pos Pred Value         0.9993   0.9979   0.9942   0.9988   0.9989
+## Neg Pred Value         0.9997   0.9992   0.9995   0.9993   0.9998
+## Prevalence             0.2845   0.1935   0.1743   0.1639   0.1837
+## Detection Rate         0.2843   0.1929   0.1739   0.1633   0.1835
+## Detection Prevalence   0.2845   0.1933   0.1750   0.1635   0.1837
+## Balanced Accuracy      0.9995   0.9982   0.9982   0.9980   0.9993
+``` 
+The predictive accuracy of the Random Forest model is excellent at 99.8 %.
+
+Applying the Best Predictive Model to the Test Data
+---------------------------------------------------
+
+The predictive accuracy of the three models evaluated is as follows:
+
+Decision Tree Model: 74.90 %
+Random Forest Model: 99.80 %
+
+The Random Forest model is selected and applied to make predictions on the 20 data points from the original testing dataset (data_quiz).
+``` r
+predict_quiz <- predict(fit_RF, newdata = data_quiz)
+predict_quiz
 ``` 
 ``` r
-``` 
-``` r
-``` 
-``` r
-``` 
-``` r
-``` 
-``` r
-``` 
-``` r
+##  [1] B A B A A E D B A A B C B A E E A B B B
+## Levels: A B C D E
 ``` 
 
 
