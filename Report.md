@@ -1,4 +1,4 @@
-PredictionAssignment
+Weightlifting Analysis
 =======================
 Practical Machine Learning - Prediction Assignment Writeup
 
